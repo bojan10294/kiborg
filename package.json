@@ -1,0 +1,8 @@
+{
+  "name": "kiborg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bojan10294/kiborg.git",
+  "author": "Bojan Petkovic <bojan.petkovic@asioso.com>",
+  "license": "MIT"
+}
