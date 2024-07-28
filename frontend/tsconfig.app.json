@@ -23,7 +23,18 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "typeRoots": ["./node_modules/@types", "./src"]
+    "typeRoots": ["./node_modules/@types", "./src"],
+
+    /* Paths */
+    "baseUrl": "./src",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "components/*": ["components/*"],
+      "context/*": ["context/*"],
+      "hooks/*": ["hooks/*"],
+      "pages/*": ["pages/*"],
+      "types/*": ["types/*"]
+    }
   },
   "include": ["src"]
 }
