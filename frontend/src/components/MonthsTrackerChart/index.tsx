@@ -96,8 +96,8 @@ const CustomAreaChart: FC = () => {
   };
 
   return (
-    <div style={{ width: '100%', height: '400px' }}>
-      <Line ref={chartRef} data={chartData} options={options} height={400} />
+    <div style={{ width: '100%', height: '460px' }}>
+      <Line ref={chartRef} data={chartData} options={options} height={460} />
     </div>
   );
 };

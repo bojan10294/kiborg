@@ -12,7 +12,7 @@ const Navbar = () => {
   ];
   console.log('authTokens', authTokens);
   return (
-    <nav className="py-10 px-8 flex flex-col gap-8 w-64 bg-gray-100 h-screen">
+    <nav className="py-10 px-8 flex flex-col gap-8 w-64 bg-gray-200 h-screen">
       <div>
         <img src="src/assets/logo.svg" alt="logo" className="w-36" />
       </div>
@@ -25,7 +25,7 @@ const Navbar = () => {
             <div className="rounded-lg w-8 h-8 flex items-center justify-center">
               <i className="bx bxs-user text-xl text-primary"></i>
             </div>
-            <span className={`text-slate-500 font-medium text-sm`}>{authTokens.name}</span>
+            <span className="text-slate-500 font-medium text-sm">{authTokens.name}</span>
           </li>
         ) : (
           <NavItem

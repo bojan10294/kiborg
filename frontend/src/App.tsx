@@ -14,7 +14,7 @@ const App = () => {
       <Router>
         <div className="flex">
           <Navbar />
-          <main className="flex-1 py-10 px-8">
+          <main className="flex-1 py-10 px-8 bg-gray-100">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />

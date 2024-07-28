@@ -94,9 +94,9 @@ const ExpenseChart: FC = () => {
 
   return (
     <div
-      style={{ width: '100%', height: '400px' }}
+      style={{ width: '100%', height: '300px' }}
       className="flex h-80 gap-6 bg-gradient-to-tr from-[#313860] to-[#151928] p-8 font-medium rounded-xl text-white">
-      <Bar ref={chartRef} data={chartData} options={options} height={400} />
+      <Bar ref={chartRef} data={chartData} options={options} height={300} />
     </div>
   );
 };
