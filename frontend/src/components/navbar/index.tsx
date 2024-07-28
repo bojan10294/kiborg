@@ -14,10 +14,18 @@ const Navbar = () => {
       <div>
         <img src="src/assets/logo.svg" alt="logo" className="w-36" />
       </div>
-      <ul className="flex flex-col border-t border-t-gray-200 pt-8">
+      <ul className="flex flex-col border-t border-t-gray-200 pt-8 h-full">
         {routes.map((route) => (
           <NavItem key={route.path} title={route.title} icon={route.icon} route={route.path} active={location.pathname === route.path} />
         ))}
+        <NavItem
+          key="/login"
+          title="Login"
+          icon="user"
+          route="/login"
+          active={location.pathname === '/login'}
+          additionalClasses="mt-auto"
+        />
       </ul>
     </nav>
   );

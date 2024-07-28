@@ -6,9 +6,10 @@ interface NavItemProps {
   icon: string;
   active?: boolean;
   route: string;
+  additionalClasses?: string;
 }
 
-const NavItem: FC<NavItemProps> = ({ title, icon, active = false, route }) => {
+const NavItem: FC<NavItemProps> = ({ title, icon, active = false, route, additionalClasses = '' }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -16,7 +17,9 @@ const NavItem: FC<NavItemProps> = ({ title, icon, active = false, route }) => {
   };
 
   return (
-    <li className={`flex items-center gap-4 p-3 rounded-2xl cursor-pointer ${active ? 'bg-white shadow-sm' : ''}`} onClick={handleClick}>
+    <li
+      className={`flex items-center gap-4 p-3 rounded-2xl cursor-pointer ${active ? 'bg-white shadow-sm' : ''} ${additionalClasses}`}
+      onClick={handleClick}>
       <div className={`rounded-lg w-8 h-8 flex items-center justify-center ${active ? 'bg-primary' : 'bg-white shadow-sm'}`}>
         <i className={`bx bxs-${icon} text-xl ${active ? 'text-white' : 'text-primary'}`}></i>
       </div>

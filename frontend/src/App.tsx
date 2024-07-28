@@ -3,6 +3,7 @@ import Navbar from './components/navbar';
 import Dashboard from './pages/dashboard';
 import Kiflice from './pages/kiflice';
 import Booking from './pages/booking';
+import Login from './pages/login';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
             <Route path="/kiflice" element={<Kiflice />} />
             <Route path="/booking" element={<Booking />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
       </div>
