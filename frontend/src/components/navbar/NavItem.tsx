@@ -23,7 +23,7 @@ const NavItem: FC<NavItemProps> = ({ title, icon, active = false, route, additio
       <div className={`rounded-lg w-8 h-8 flex items-center justify-center ${active ? 'bg-primary' : 'bg-white shadow-sm'}`}>
         <i className={`bx bxs-${icon} text-xl ${active ? 'text-white' : 'text-primary'}`}></i>
       </div>
-      <span className={`text-slate-500 font-medium text-sm ${active ? 'text-gray-950' : 'text-slate-500'}`}>{title}</span>
+      <span className={`font-medium text-sm ${active ? 'text-gray-950' : 'text-slate-500'}`}>{title}</span>
     </li>
   );
 };

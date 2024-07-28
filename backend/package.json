@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts"
+    "dev": "nodemon --watch src -e ts --exec ts-node src/index.ts",
+    "test": "ts-node src/testPassword.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

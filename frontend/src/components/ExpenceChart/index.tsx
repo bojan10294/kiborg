@@ -1,50 +1,102 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
+import type { ChartData, ChartOptions } from 'chart.js';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 interface ExpenseItem {
-  name: string;
+  label: string;
   value: number;
 }
 
 const data: ExpenseItem[] = [
-  { name: 'Milan', value: 32000 },
-  { name: 'Family032', value: 23000 },
-  { name: 'Piletina', value: 11000 },
-  { name: 'Cvarci', value: 29000 },
-  { name: 'Susam', value: 60000 },
-  { name: 'Pek papir', value: 41000 },
-  { name: 'Ulje', value: 18000 },
-  { name: 'Kese', value: 29000 },
-  { name: 'Jaja', value: 15000 },
+  { label: 'Milan', value: 32000 },
+  { label: 'Family032', value: 23000 },
+  { label: 'Piletina', value: 11000 },
+  { label: 'Cvarci', value: 29000 },
+  { label: 'Susam', value: 74000 },
+  { label: 'Pek papir', value: 41000 },
+  { label: 'Ulje', value: 18000 },
+  { label: 'Kese', value: 29000 },
+  { label: 'Jaja', value: 15000 },
 ];
 
-const ExpenseChart: FC = () => {
-  const maxValue = Math.max(...data.map((item) => item.value));
-  const roundedMax = Math.ceil(maxValue / 10000) * 10000;
+const labels = data.map((d) => d.label);
+const values = data.map((d) => d.value);
 
-  const intervalCount = Math.min(6, roundedMax / 10000 + 1);
-  const interval = roundedMax / (intervalCount - 1);
+const ExpenseChart: FC = () => {
+  const chartRef = useRef<ChartJS<'bar'>>(null);
+
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (chart) {
+      const ctx = chart.ctx;
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
+
+      chart.data.datasets[0].backgroundColor = gradient;
+      chart.update();
+    }
+  }, []);
+
+  const chartData: ChartData<'bar'> = {
+    labels,
+    datasets: [
+      {
+        label: 'Values',
+        data: values,
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        borderColor: 'rgba(255, 255, 255, .8)',
+        borderWidth: 1,
+        barThickness: 16,
+        borderRadius: 8,
+      },
+    ],
+  };
+
+  const options: ChartOptions<'bar'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: 'white',
+        },
+      },
+      y: {
+        grid: {
+          display: true,
+          color: 'rgba(255, 255, 255, .1)',
+        },
+        ticks: {
+          color: 'white',
+          callback: function (value) {
+            return value.toLocaleString();
+          },
+        },
+      },
+    },
+  };
 
   return (
-    <div className="flex h-80 gap-6 bg-gradient-to-tr from-[#313860] to-[#151928] p-10 pb-16 font-medium rounded-xl text-white">
-      <ul className="flex flex-col justify-between">
-        {Array.from({ length: intervalCount }).map((_, index) => (
-          <li key={index} className="text-sm">
-            {((intervalCount - 1 - index) * interval).toLocaleString()}
-          </li>
-        ))}
-      </ul>
-      <div className="flex justify-around flex-1">
-        {data.map((item) => (
-          <div key={item.name} className="flex flex-col gap-3 items-center justify-end relative">
-            <div style={{ height: `${(item.value / roundedMax) * 100}%` }} className="w-3 rounded-md bg-white relative">
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white text-[#313860] px-1.5 py-0.5 rounded text-[11px] whitespace-nowrap">
-                {item.value.toLocaleString()}
-              </div>
-            </div>
-            <span className="absolute -bottom-8 w-max max-w-24 text-xs">{item.name}</span>
-          </div>
-        ))}
-      </div>
+    <div
+      style={{ width: '100%', height: '400px' }}
+      className="flex h-80 gap-6 bg-gradient-to-tr from-[#313860] to-[#151928] p-8 font-medium rounded-xl text-white">
+      <Bar ref={chartRef} data={chartData} options={options} height={400} />
     </div>
   );
 };

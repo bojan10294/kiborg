@@ -18,13 +18,21 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next();
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error as Error);
+  }
 });
 
-userSchema.methods.comparePassword = async function (password: string) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw new Error('Error comparing passwords');
+  }
 };
 
 const User = model<IUser>('User', userSchema);

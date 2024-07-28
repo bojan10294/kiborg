@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
 interface AuthRequest extends Request {
   user?: any;
 }
 
-const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
-  console.log(req.headers); // Log headers for debugging
+const { jwtSecret } = config;
 
+const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
   const authHeader = req.header('Authorization');
   if (!authHeader) {
     return res.status(401).json({ error: 'No token, authorization denied' });
@@ -19,7 +20,7 @@ const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token, jwtSecret);
     req.user = decoded;
     next();
   } catch (err) {
